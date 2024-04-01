@@ -3,14 +3,20 @@
     <img class="card__image" src={@image} alt={@image_alt} />
   </div>
   <div class="card__description">
-    <p><strong><%= @description_title %></strong></p>
-    <span><%= @description %></span>
+    <%= if Map.has_key?(assigns, :inner_block) do %>
+      <%= render_slot(@inner_block) %>
+    <% else %>
+      <p><strong><%= @description_title %></strong></p>
+      <span><%= @description %></span>
+    <% end %>
   </div>
   <div class="card__actions">
     <p><strong>Actions</strong></p>
     <div class="card__actions-links">
       <p :for={action <- @actions}>
-        <a href={action.href} class="material-symbols-outlined"><%= if action.name == "favorite", do: "favorite", else: "thumb_down" %></a>
+        <a href={action.href} class="material-symbols-outlined">
+          <%= if action.name == "favorite", do: "favorite", else: "thumb_down" %>
+        </a>
       </p>
     </div>
   </div>
